@@ -75,9 +75,11 @@ public class TodosAPI {
 </dependency>
 ```
 
-When we start the Todo(s) API, documentation will be available at ``http://localhost:8080/swagger-ui.html``
+Once started the Todo(s) API docs will be available at ``http://localhost:8080/swagger-ui.html``
 
 <p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png">
+    <img width="420" src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png">
 </p>
+
+
 
