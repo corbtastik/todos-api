@@ -11,13 +11,13 @@ Howdy and welcome.  This repository contains a Microservice API implemented in S
 * Spring Cloud Sleuth (request tracing)
 * Swagger (API documentation)
 
-This API is part of the Todo collection of Microservices which are part of a larger demo set used in Cloud Native Developer Workshops.
+This API is part of the [Todo collection](https://github.com/corbtastik/todo-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
 
 This example shows how easy it is to implement an API Microservice using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25.
 
 **API Controller**
 
-With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.
+With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(d) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us.  Todo(s) Data uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out that repo for more information on Spring Boot with Spring Data Rest.
 
 ```java
 @RestController
