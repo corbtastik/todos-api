@@ -59,20 +59,20 @@ public class TodosAPI {
 [Swagger](https://swagger.io/) integrates with Spring Boot quite nicely with [SpringFox](http://springfox.github.io/springfox/) which we've included as dependencies in ``pom.xml``
 
 ```
-	<properties>
-        <swagger.version>2.8.0</swagger.version>
-	</properties>
+<properties>
+    <swagger.version>2.8.0</swagger.version>
+</properties>
 
-    <dependency>
-        <groupId>io.springfox</groupId>
-        <artifactId>springfox-swagger2</artifactId>
-        <version>${swagger.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>io.springfox</groupId>
-        <artifactId>springfox-swagger-ui</artifactId>
-        <version>${swagger.version}</version>
-    </dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>${swagger.version}</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>${swagger.version}</version>
+</dependency>
 ```
 
 When we start the Todo(s) API, documentation will be available at ``http://localhost:8080/swagger-ui.html``
