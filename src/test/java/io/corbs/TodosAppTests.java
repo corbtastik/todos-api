@@ -19,20 +19,20 @@ public class TodosAppTests {
 
     @Test
     public void createDelete() {
-        String body = this.restTemplate.getForObject("/", String.class);
+        String body = this.restTemplate.getForObject("/todos/", String.class);
         assertThat(body).isEqualTo("[]");
 
         Todo todo = Todo.builder().title("unit test create todo")
             .completed(Boolean.FALSE).build();
 
-        Todo createdTodo = this.restTemplate.postForObject("/", todo, Todo.class);
+        Todo createdTodo = this.restTemplate.postForObject("/todos/", todo, Todo.class);
 
         assertThat(createdTodo.getId()).isGreaterThanOrEqualTo(0);
         assertThat(createdTodo.getTitle()).isEqualTo("unit test create todo");
         assertThat(createdTodo.getCompleted()).isFalse();
 
-        this.restTemplate.delete("/" + createdTodo.getId());
-        body = this.restTemplate.getForObject("/", String.class);
+        this.restTemplate.delete("/todos/" + createdTodo.getId());
+        body = this.restTemplate.getForObject("/todos/", String.class);
         assertThat(body).isEqualTo("[]");
     }
 }
