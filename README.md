@@ -17,7 +17,7 @@ This example shows how easy it is to implement an API Microservice using Spring 
 
 **API Controller**
 
-With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(d) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us.  Todo(s) Data uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out that repo for more information on Spring Boot with Spring Data Rest.
+With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(s) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us, it uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out that [repo](https://github.com/corbtastik/todos-data) for more information on Spring Boot with Spring Data Rest.
 
 ```java
 @RestController
