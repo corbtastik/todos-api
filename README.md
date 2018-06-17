@@ -141,3 +141,70 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
     <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-delete-all.png">
 </p>
 
+### Spring Cloud Ready
+
+Like every Microservice in Todo-EcoSystem the Todo(s) API plugs into the Spring Cloud stack several ways.
+
+#### 1) Spring Cloud Config Client : Pull config from Config Server
+
+From a Spring Cloud perspective we need ``bootstrap.yml`` added so we can configure several important properties that will connect this Microservice to Spring Cloud Config Server so that all external config can be pulled and applied.  We also define ``spring.application.name`` which is the default ``serviceId|VIP`` used by Spring Cloud to refer to this Microservice at runtime.  When the App boots Spring Boot will load ``bootstrap.yml`` before ``application.yml|.properties`` to hook Config Server.  Which means we need to provide where our Config Server resides.  By default Spring Cloud Config Clients (*such as Todo(s) API*) will look for Config Server on ``localhost:8888`` but if we push to the cloud we'll need to override the value for ``spring.cloud.config.uri``.
+
+```yml
+spring:
+  application:
+    name: todos-api
+  cloud:
+    config:
+      uri: ${SPRING_CONFIG_URI:http://localhost:8888}
+```
+
+#### 2) Spring Cloud Eureka Client : Participate in service discovery
+
+To have the Todo(s) API participate in Service Discovery we added the eureka-client dependency in our pom.xml.
+
+```xml
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+```
+
+This library will be on the classpath and when Spring Boot starts it will automatically register with Eureka.  When running locally with Eureka we don't need to provide config to find the Eureka Server.  However when we push to the cloud we'll need to locate Eureka and that's done with the following config in ``application.yml|properties`` 
+
+```yml
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka 
+```
+
+The ``defaultZone`` is the fallback/default zone used by this Eureka Client, we could register with another zone should one be created in Eureka.
+
+To **disable** Service Registration we can set ``eureka.client.enabled=false``.
+
+#### 3) Spring Cloud Sleuth : Support for request tracing
+
+Tracing request/response(s) in Microservices is no small task.  Thankfully Spring Cloud Sleuth provides easy entry into distributed tracing.  We added this dependency in ``pom.xml`` to auto-configure request tracing.
+
+```xml
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+```
+
+Once added our Todo(s) API will add tracing information to each logged event.  For example:
+
+```shell
+INFO [todos-api,4542eb97e16e2cdf,8752eb97e16e2cdf,false] 36223 --- [nio-9999-exec-1] o.s.c.n.zuul.web.ZuulHandlerMapping ...
+```
+
+The event format is: ``[app, traceId, spanId, isExportable]``, where
+
+* **app**: is the ``spring.application.name`` that sourced the log event
+* **traceId**: The ID of the trace graph that contains the span
+* **spanId**: The ID of a specific operation that took place
+* **isExportable**: Whether the log should be exported to Zipkin
+
+Reference the [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/) docs for more information.
+
