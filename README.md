@@ -2,7 +2,7 @@
 
 Howdy and welcome.  This repository contains a Microservice API implemented in Spring Boot and Spring Cloud.  This API uses Spring MVC to map endpoints to methods using the time tested ``@RestController`` and ``@RequestMapping`` annotations.  The API is the backend for the [Vue.js version](http://todomvc.com/examples/vue/) of [TodoMVC](http://todomvc.com/).  Frontend repo is [here](https://github.com/corbtastik/todos-ui).
 
-**Primary dependencies**
+### Primary dependencies
 
 * Spring Boot Starter Web (implement API)
 * Spring Boot Actuators (ops endpoints)
@@ -13,9 +13,9 @@ Howdy and welcome.  This repository contains a Microservice API implemented in S
 
 This API is part of the [Todo collection](https://github.com/corbtastik/todo-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
 
-This example shows how easy it is to implement an API Microservice using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25.
+This example shows how easy it is to implement an API Microservice using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25 but Spring Boot Property management we can override at startup like so: ``--todos.api.limit=100``.
 
-**API Controller**
+### API Controller
 
 With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(s) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us, it uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out that [repo](https://github.com/corbtastik/todos-data) for more information on Spring Boot with Spring Data Rest.
 
@@ -27,7 +27,7 @@ public class TodosAPI {
 }
 ```
 
-**API operations:**
+### API operations
 
 1. Create a Todo
 2. Retrieve one or more Todo(s)
@@ -54,7 +54,7 @@ public class TodosAPI {
     public void delete() { }
 ```
 
-**API documentation**
+### API documentation
 
 [Swagger](https://swagger.io/) integrates with Spring Boot quite nicely with [SpringFox](http://springfox.github.io/springfox/) which we've included as dependencies in ``pom.xml``
 
@@ -78,8 +78,66 @@ public class TodosAPI {
 Once started the Todo(s) API docs will be available at ``http://localhost:8080/swagger-ui.html``
 
 <p align="center">
-    <img width="420" src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png">
 </p>
 
+### Build
 
+```bash
+git clone https://github.com/corbtastik/todos-api.git
+cd todos-api
+./mvnw clean package
+```
+
+### Run 
+
+```bash
+java -jar target/todos-api-1.0.0.SNAP.jar
+```
+
+### Run with Remote Debug 
+```bash
+java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=9111,suspend=n \
+  -jar target/todos-api-1.0.0.SNAP.jar
+```
+
+### Verify
+
+Once Todo(s) API is running we can access it directly using [cURL](https://curl.haxx.se/) or [HTTPie](https://httpie.org/) to perform CRUD operations on the API.
+
+#### Create a Todo
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-create.png">
+</p>
+
+#### Retrieve one Todo
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-retrieve-one.png">
+</p>
+
+#### Retrieve all Todo(s)
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-retrieve-all.png">
+</p>
+
+#### Update a Todo
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-update.png">
+</p>
+
+#### Delete one Todo
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-delete-one.png">
+</p>
+
+#### Delete all Todo(s)
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-delete-all.png">
+</p>
 

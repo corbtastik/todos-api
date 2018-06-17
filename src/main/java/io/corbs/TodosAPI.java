@@ -11,12 +11,12 @@ import java.util.*;
 @RequestMapping("todos")
 public class TodosAPI {
 
-    @Value("${todos.api.maxSize}")
-    private int maxSize;
+    @Value("${todos.api.limit}")
+    private int limit;
     private final LinkedHashMap<Integer, Todo> todos = new LinkedHashMap<Integer, Todo>() {
         @Override
         protected boolean removeEldestEntry(final Map.Entry eldest) {
-            return size() > maxSize;
+            return size() > limit;
         }
     };
 
@@ -66,5 +66,10 @@ public class TodosAPI {
             old.setTitle(todo.getTitle());
         }
         return old;
+    }
+
+    @GetMapping("/limit")
+    public Integer getLimit() {
+        return this.limit;
     }
 }
