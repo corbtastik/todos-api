@@ -13,11 +13,11 @@ Howdy and welcome.  This repository contains a Microservice API implemented in S
 
 This API is part of the [Todo collection](https://github.com/corbtastik/todo-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
 
-This example shows how easy it is to implement an API Microservice using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25 but Spring Boot Property management we can override at startup like so: ``--todos.api.limit=100``.
+This example shows how easy it is to implement Microservices using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25 but Spring Boot Property management we can override at startup like so: ``--todos.api.limit=100``.
 
 ### API Controller
 
-With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(s) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us, it uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out that [repo](https://github.com/corbtastik/todos-data) for more information on Spring Boot with Spring Data Rest.
+With ``@RestController`` and ``@RequestMapping`` annotations on a ``class`` we can encapsulates and provide context for an API.  ``TodoAPI`` maps http requests starting with `/todos` to CRUD methods implemented in this class.  The [Todo(s) Data](https://github.com/corbtastik/todos-data) Microservice exposes a similar CRUD API but with zero code from us, it uses Spring Data Rest to blanket a Data Model with a CRUD based API.  Check out [repo](https://github.com/corbtastik/todos-data) for more information on Spring Boot with Spring Data Rest.
 
 ```java
 @RestController
@@ -29,10 +29,10 @@ public class TodosAPI {
 
 ### API operations
 
-1. Create a Todo
-2. Retrieve one or more Todo(s)
-3. Update a Todo
-4. Delete one or more Todo(s)
+1. **C**reate a Todo
+2. **R**etrieve one or more Todo(s)
+3. **U**pdate a Todo
+4. **D**elete one or more Todo(s)
 
 ```java
     @PostMapping("/")
@@ -56,7 +56,7 @@ public class TodosAPI {
 
 ### API documentation
 
-[Swagger](https://swagger.io/) integrates with Spring Boot quite nicely with [SpringFox](http://springfox.github.io/springfox/) which we've included as dependencies in ``pom.xml``
+[Swagger](https://swagger.io/) integrates with Spring Boot quite nicely thanks to [SpringFox](http://springfox.github.io/springfox/) which we've included as dependencies in ``pom.xml``
 
 ```
 <properties>
@@ -207,4 +207,105 @@ The event format is: ``[app, traceId, spanId, isExportable]``, where
 * **isExportable**: Whether the log should be exported to Zipkin
 
 Reference the [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-sleuth/) docs for more information.
+
+### Verify Spring Cloud
+
+Todo(s) API participates in Service Discovery and pulls configuration from central config Server in an environment that contains Eureka and Config Server.  Todo(s) API defines ``spring.application.name=todos-api`` in ``bootstrap.yml`` along with the location of Config Server.  Recall by default ``spring.application.name`` is used as the serviceId (or VIP) in Spring Cloud, which means we can reference Microservices by VIP in Spring Cloud.
+
+When the API starts it will register with Eureka and other Eureka Clients such as the [Todo(s) Gateway](https://github.com/corbtastik/todos-gateway) will get a download from Eureka containing a new entry for VIP ``todos-api``.  For example if we query the Todo(s) Gateway for routes will see a new entry for Todo(s) API.  Once the route is loaded we can interact with Todo(s) API through the Gateway.
+
+#### Query Gateway for routes
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-query-gateway.png">
+</p>
+
+#### Calling Todo(s) API through Gateway
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-through-gateway.png">
+</p>
+
+### Query Eureka for App Info
+
+As mentioned when this Microservice starts it will register with Eureka, which means we could call Eureka API directly and get information about Todo(s) API.  Eureka has an API that can be used to interact with service registry in a language neutral manner.  To get information about Todo(s) API we could make a call like so to Eureka.
+
+```bash
+# GET /eureka/apps/${vip}
+http :8761/eureka/apps/todos-api
+```
+
+Which returns XML info for VIP ``todos-api``.  The complete Eureka API reference is [here](https://github.com/Netflix/eureka/wiki/Eureka-REST-operations).
+
+```xml
+<application>
+    <name>TODOS-API</name>
+    <instance>
+        <instanceId>172.20.10.2:todos-api:8080</instanceId>
+        <hostName>172.20.10.2</hostName>
+        <app>TODOS-API</app>
+        <ipAddr>172.20.10.2</ipAddr>
+        <status>UP</status>
+        <overriddenstatus>UNKNOWN</overriddenstatus>
+        <port enabled="true">8080</port>
+        <securePort enabled="false">443</securePort>
+        <countryId>1</countryId>
+            <dataCenterInfo class="com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo">
+            <name>MyOwn</name>
+            </dataCenterInfo>
+        <leaseInfo>
+            <renewalIntervalInSecs>30</renewalIntervalInSecs>
+            <durationInSecs>90</durationInSecs>
+            <registrationTimestamp>1529245795268</registrationTimestamp>
+            <lastRenewalTimestamp>1529248225805</lastRenewalTimestamp>
+            <evictionTimestamp>0</evictionTimestamp>
+            <serviceUpTimestamp>1529245794760</serviceUpTimestamp>
+        </leaseInfo>
+        <metadata>
+            <management.port>8080</management.port>
+        </metadata>
+        <homePageUrl>http://172.20.10.2:8080/</homePageUrl>
+        <statusPageUrl>http://172.20.10.2:8080/actuator/info</statusPageUrl>
+        <healthCheckUrl>http://172.20.10.2:8080/actuator/health</healthCheckUrl>
+        <vipAddress>todos-api</vipAddress>
+        <secureVipAddress>todos-api</secureVipAddress>
+        <isCoordinatingDiscoveryServer>false</isCoordinatingDiscoveryServer>
+        <lastUpdatedTimestamp>1529245795268</lastUpdatedTimestamp>
+        <lastDirtyTimestamp>1529245794711</lastDirtyTimestamp>
+        <actionType>ADDED</actionType>
+    </instance>
+</application>
+```
+
+### Spring Cloud Config Client
+
+We included ``spring-cloud-starter-config`` so Todo(s) API can pull config from Config Server.  What Config Server?  The one configured in ``bootstrap.yml`` and by default it's ``localhost:8888``.  If we look at the logs on start-up we'll see Todo(s) API reaching out to Config Server to pull down config.  For example we see "Fetching from config server" and the actual backing Property Source as a git repo (config-repo).
+
+```bash
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.2.RELEASE)
+
+INFO [todos-api,,,] 7881 --- [main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+INFO [todos-api,,,] 7881 --- [main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=todos-api, profiles=[default], label=null, version=e9b0ca28af40e1a7fb5adff5f502e3641cee8524, state=null
+INFO [todos-api,,,] 7881 --- [main] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource {name='configService', propertySources=[MapPropertySource {name='configClient'}, MapPropertySource {name='https://github.com/corbtastik/config-repo/todos-api.properties'}]}
+```
+
+Recall we limit the number of Todo(s) that can be cached in this Microservice.  If we want to increase the limit we can override ``todos.api.limit`` on the command line or we can override in Config Server and have it inject the new value.
+
+#### Todo(s) Config Client
+
+Check the limit endpoint and verify its increased to 50 from 25.  We can also query the Config Server API directly.  By default with no profile(s) set the Todo(s) API Microservice will pull config from ``http://localhost:8888/${serviceId}/{profile}``, so in our case it's ``http://localhost:8888/todos-api/default``, which is where we get the new limit of 50 from.  See [Config Server](https://github.com/corbtastik/config-server) project for detailed information about [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/).
+
+<p align="center">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-config-client.png">
+</p>
+
+### References
+
+* [Eureka in 10 mins](https://blog.asarkar.org/technical/netflix-eureka/)
 
