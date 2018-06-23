@@ -1,12 +1,10 @@
 ---
 applications:
-- name: todos-java
+- name: todos-api
   memory: 1G
   routes:
-  - route: todos-java.apps.pcf.corbscloud.io
-  - route: todos-java-1-0-0-SNAP.apps.pcf.corbscloud.io
-  path: target/todos-java-1.0.0.SNAP.jar
+  - route: todos-api.cfapps.io
+  path: target/todos-api-1.0.0.SNAP.jar
   buildpack: java_buildpack
   env:
-    GREETING: 'Howdy'
-    JAVA_OPTS: '-Deureka.client.serviceUrl.defaultZone=http://cloud-index.apps.pcf.corbscloud.io/eureka/'
+    JAVA_OPTS: '-Deureka.client.serviceUrl.defaultZone=http://cloud-index.cfapps.io/eureka/'

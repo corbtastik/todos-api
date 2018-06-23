@@ -11,7 +11,7 @@ Howdy and welcome.  This repository contains a Microservice API implemented in S
 * Spring Cloud Sleuth (request tracing)
 * Swagger (API documentation)
 
-This API is part of the [Todo collection](https://github.com/corbtastik/todo-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
+This API is part of the [Todo collection](https://github.com/corbtastik/todos-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
 
 This example shows how easy it is to implement Microservices using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25 but Spring Boot Property management we can override at startup like so: ``--todos.api.limit=100``.
 
@@ -143,7 +143,7 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
 
 ### Spring Cloud Ready
 
-Like every Microservice in Todo-EcoSystem the Todo(s) API plugs into the Spring Cloud stack several ways.
+Like every Microservice in Todos-EcoSystem the Todo(s) API plugs into the Spring Cloud stack several ways.
 
 #### 1) Spring Cloud Config Client : Pull config from Config Server
 

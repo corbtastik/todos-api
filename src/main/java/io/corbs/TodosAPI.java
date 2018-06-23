@@ -1,12 +1,17 @@
 package io.corbs;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+@RefreshScope
 @RestController
 @RequestMapping("todos")
 public class TodosAPI {
@@ -73,3 +78,17 @@ public class TodosAPI {
         return this.limit;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
