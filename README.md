@@ -1,6 +1,6 @@
 ## Todo(s) Backing API
 
-Howdy and welcome.  This repository contains a Microservice API implemented in Spring Boot and Spring Cloud.  This API uses Spring MVC to map endpoints to methods using the time tested ``@RestController`` and ``@RequestMapping`` annotations.  The API is the backend for the [Vue.js version](http://todomvc.com/examples/vue/) of [TodoMVC](http://todomvc.com/).  Frontend repo is [here](https://github.com/corbtastik/todos-ui).
+Howdy and welcome.  This repository contains a Microservice API implemented in [Spring Boot](https://spring.io/projects/spring-boot) and [Spring Cloud](https://spring.io/projects/spring-cloud).  This API uses Spring MVC to map endpoints to methods using the time tested ``@RestController`` and ``@RequestMapping`` annotations.  The API is the backend for the [Vue.js version](http://todomvc.com/examples/vue/) of [TodoMVC](http://todomvc.com/).  Frontend repo is [here](https://github.com/corbtastik/todos-ui).
 
 ### Primary dependencies
 
@@ -304,6 +304,56 @@ Check the limit endpoint and verify its increased to 50 from 25.  We can also qu
 <p align="center">
     <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-config-client.png">
 </p>
+
+### Run on (PAS) Pivotal Application Service
+
+[Pivotal Application Service](https://pivotal.io/platform/pivotal-application-service) is a modern runtime for Java, .NET, Node.js apps and many more.  It's a Cloud Native Runtime that provides a connected development to delivery experience that's 5 stars.  PAS provides a cloud agnostic surface for apps and ops alike.
+
+#### manifest.yml & vars.yml
+
+The only PAS specific artifacts in this code repo are ``manifest.yml`` and ``vars.yml``.  Modify ``vars.yml`` to add properties specific to your PAS environment. See [Variable Substitution](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#multi-manifests) for more information.  The gist is we only need to set values for our PAS deployment in ``vars.yml`` and pass that file to ``cf push``.
+
+The Todo(s) Gateway requires 3 environment variables:
+
+1. ``EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE`` - Service Discovery URL
+2. ``TODOS_UI_ENDPOINT`` - [Todo(s) UI in Vue.js](https://github.com/corbtastik/todos-ui) URL
+3. ``TODOS_API_ENDPOINT`` - [Todo(s) API](https://github.com/corbtastik/todos-api) in Spring Boot
+
+```yml manifest.yml
+app:
+  name: todos-gateway
+  memory: 1G
+  route: todos-gateway.cfapps.io
+env-key-1: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+env-val-1: http://cloud-index.cfapps.io/eureka/
+env-key-2: TODOS_UI_ENDPOINT
+env-val-2: http://todos-ui.cfapps.io
+env-key-3: TODOS_API_ENDPOINT
+env-val-3: http://todos-api.cfapps.io/todos
+```
+
+```yml vars.yml
+app:
+  name: todos-gateway
+  memory: # your memory value, ex: 1G
+  route:  # your route value, ex: todos-gateway.cfapps.io
+env-key-1: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+env-val-1: # your service discovery url, ex: http://cloud-index.cfapps.io/eureka/
+env-key-2: TODOS_UI_ENDPOINT
+env-val-2: # your todo(s) UI url, ex: http://todos-ui.cfapps.io
+env-key-3: TODOS_API_ENDPOINT
+env-val-3: # your todo(s) API url, ex: http://todos-api.cfapps.io/todos
+```
+
+#### cf push...awe yeah
+
+Yes you can go from zero to hero with one command :)
+
+Make sure your in the Todo(s) Gateway project root (folder with ``manifest.yml``) and cf push...awe yeah!
+
+```
+cf push --vars-file ./vars.yml  
+```
 
 ### References
 
