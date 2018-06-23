@@ -319,7 +319,9 @@ The Todo(s) Gateway requires 3 environment variables:
 2. ``TODOS_UI_ENDPOINT`` - [Todo(s) UI in Vue.js](https://github.com/corbtastik/todos-ui) URL
 3. ``TODOS_API_ENDPOINT`` - [Todo(s) API](https://github.com/corbtastik/todos-api) in Spring Boot
 
-```yml manifest.yml
+#### manifest.yml
+
+```yml
 app:
   name: todos-gateway
   memory: 1G
@@ -332,7 +334,9 @@ env-key-3: TODOS_API_ENDPOINT
 env-val-3: http://todos-api.cfapps.io/todos
 ```
 
-```yml vars.yml
+#### vars.yml
+
+```yml
 app:
   name: todos-gateway
   memory: # your memory value, ex: 1G
