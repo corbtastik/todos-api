@@ -307,7 +307,7 @@ Check the limit endpoint and verify its increased to 50 from 25.  We can also qu
 
 ### Run on (PAS) Pivotal Application Service
 
-[Pivotal Application Service](https://pivotal.io/platform/pivotal-application-service) is a modern runtime for Java, .NET, Node.js apps and many more.  It's a Cloud Native Runtime that provides a connected development to delivery experience that's 5 stars.  PAS provides a cloud agnostic surface for apps and ops alike.
+[Pivotal Application Service](https://pivotal.io/platform/pivotal-application-service) is a modern runtime for Java, .NET, Node.js apps and many more.  It's a Cloud Native Runtime that provides a connected 5-star development to delivery experience.  PAS provides a cloud agnostic surface for apps and ops alike.
 
 #### manifest.yml & vars.yml
 
