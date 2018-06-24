@@ -489,9 +489,7 @@ buildpack:         java_buildpack
 #0   running   2018-06-24T02:34:44Z   14.7%   379.2M of 1G   170.3M of 1G
 ```  
 
-### Verify on Cloud
-
-#### Call API on Cloud
+### Verify on Cloud   
 
 Once Todo(s) API is running, use an HTTP Client such as [cURL](https://curl.haxx.se/) or [HTTPie](https://httpie.org/) and call ``/ops/info`` to make sure the app has versioning.
 
@@ -511,6 +509,104 @@ X-Vcap-Request-Id: 4da5df96-5cdb-4b49-5ade-e5e9df3eaca4
     }
 }
 ```  
+
+#### Create a cloudy Todo
+
+```bash
+> http todos-api.cfapps.io/todos/ title="make cloudy with meatballs bacon pancakes"
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: f48d536b-381f-40ed-6603-bc2e8dac0ac7
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Retrieve one cloudy Todo
+
+```bash
+> http todos-api.cfapps.io/todos/0
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 6f3c30bd-ab2b-4fd2-61a8-bd0bbe9a585c
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Retrieve all cloudy Todo(s)
+
+```bash
+> http todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 023728b8-b8a9-4a9f-42d0-797fc87abe99
+
+[
+    {
+        "completed": false,
+        "id": 0,
+        "title": "make cloudy with meatballs bacon pancakes"
+    },
+    {
+        "completed": false,
+        "id": 1,
+        "title": "eat cloudy with meatballs bacon pancakes...add sprinkles"
+    },
+    {
+        "completed": false,
+        "id": 2,
+        "title": "eat cloudy with meatballs fried bacon pancakes...add butter"
+    }
+]
+```
+
+#### Update a cloudy Todo
+
+```bash
+> http PATCH todos-api.cfapps.io/todos/0 completed=true  
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 0f9ca41b-3c3f-43b0-6978-35fe4cce976b
+
+{
+    "completed": true,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Delete one cloudy Todo
+
+```bash
+> http DELETE todos-api.cfapps.io/todos/0  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: aca8097d-fea2-4e0e-62f8-b1754496f5b7
+
+> http todos-api.cfapps.io/todos/0  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 88c0ab16-8092-4aaf-79fc-27a0aad39ff3
+```
+
+#### Delete all cloudy Todo(s)  
+
+```bash
+> http DELETE todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 4754c38e-7204-4b5b-45a3-ef68b208a764
+
+> http todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 8d5dfd42-a7c7-4fd5-7cff-384e04d550fb
+
+[]
+```
 
 ### References
 
