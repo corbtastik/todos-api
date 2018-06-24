@@ -322,11 +322,21 @@ Transfer-Encoding: chunked
 }
 ```
 
-#### Calling Todo(s) API through Gateway
+#### Calling Todo(s) API through Gateway (2 ways)
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-through-gateway.png">
-</p>
+```
+> http :9999/todos-api/todos/
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+
+[]
+
+> http :9999/api/            
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+
+[]
+```
 
 ### Query Eureka for App Info
 
