@@ -409,9 +409,15 @@ Recall we limit the number of Todo(s) that can be cached in this Microservice.  
 
 Check the limit endpoint and verify its increased to 50 from 25.  We can also query the Config Server API directly.  By default with no profile(s) set the Todo(s) API Microservice will pull config from ``http://localhost:8888/${serviceId}/{profile}``, so in our case it's ``http://localhost:8888/todos-api/default``, which is where we get the new limit of 50 from.  See [Config Server](https://github.com/corbtastik/config-server) project for detailed information about [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/).
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-config-client.png">
-</p>
+```bash
+> http :8080/todos/limit
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:41:17 GMT
+Transfer-Encoding: chunked
+
+50
+```
 
 ### References
 
