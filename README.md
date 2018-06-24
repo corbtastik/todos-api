@@ -245,7 +245,7 @@ spring:
     name: todos-api
   cloud:
     config:
-      uri: ${SPRING_CONFIG_URI:http://localhost:8888}
+      uri: ${SPRING_CLOUD_CONFIG_URI:http://localhost:8888}
 ```
 
 #### 2) Spring Cloud Eureka Client : Participate in service discovery
