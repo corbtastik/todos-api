@@ -427,11 +427,90 @@ Transfer-Encoding: chunked
 
 The only PAS specific artifacts in this code repo are ``manifest.yml`` and ``vars.yml``.  Modify ``vars.yml`` to add properties **specific to your PAS environment**. See [Variable Substitution](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#multi-manifests) for more information.  The gist is we only need to set values for our PAS deployment in ``vars.yml`` and pass that file to ``cf push``.
 
-The Todo(s) Gateway requires 3 environment variables:
+The Todo(s) API requires 2 environment variables:
 
 1. ``EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE`` - Service Discovery URL
-2. ``TODOS_UI_ENDPOINT`` - [Todo(s) UI in Vue.js](https://github.com/corbtastik/todos-ui) URL
-3. ``TODOS_API_ENDPOINT`` - [Todo(s) API](https://github.com/corbtastik/todos-api) in Spring Boot
+2. ``TODOS_API_LIMIT`` - How many Todo(s) your account can have
+
+#### manifest.yml
+
+```yml
+---
+applications:
+- name: ((app.name))
+  memory: ((app.memory))
+  routes:
+  - route: ((app.route))
+  path: ((app.artifact))
+  buildpack: java_buildpack
+  env:
+    ((env-key-1)): ((env-val-1))
+    ((env-key-2)): ((env-val-2))
+```  
+
+#### vars.yml
+
+```yml
+app:
+  name: todos-api
+  artifact: target/todos-api-1.0.0.SNAP.jar
+  memory: 1G
+  route: todos-api.cfapps.io
+env-key-1: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
+env-val-1: http://cloud-index.cfapps.io/eureka/
+env-key-2: TODOS_API_LIMIT
+env-val-2: 5
+```
+
+#### cf push...awe yeah
+
+Yes you can go from zero to hero with one command :)
+
+Make sure you're in the Todo(s) API project root (folder with ``manifest.yml``) and cf push...awe yeah!
+
+```bash
+> cf push --vars-file ./vars.yml
+```
+
+```bash
+> cf app todos-api
+Showing health and status for app todos-api in org bubbles / space dev as ...  
+
+name:              todos-api
+requested state:   started
+instances:         1/1
+usage:             1G x 1 instances
+routes:            todos-api.cfapps.io
+last uploaded:     Sat 23 Jun 21:33:25 CDT 2018
+stack:             cflinuxfs2
+buildpack:         java_buildpack
+
+     state     since                  cpu     memory         disk           details
+#0   running   2018-06-24T02:34:44Z   14.7%   379.2M of 1G   170.3M of 1G
+```  
+
+### Verify on Cloud
+
+#### Call API on Cloud
+
+Once Todo(s) API is running, use an HTTP Client such as [cURL](https://curl.haxx.se/) or [HTTPie](https://httpie.org/) and call ``/ops/info`` to make sure the app has versioning.
+
+```bash
+> http todos-api.cfapps.io/ops/info
+HTTP/1.1 200 OK
+Content-Type: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
+X-Vcap-Request-Id: 4da5df96-5cdb-4b49-5ade-e5e9df3eaca4
+
+{
+    "build": {
+        "artifact": "todos-api",
+        "group": "io.corbs",
+        "name": "todos-api",
+        "time": "2018-06-24T02:30:55.582Z",
+        "version": "1.0.0.SNAP"
+    }
+}
+```  
 
 ### References
 
