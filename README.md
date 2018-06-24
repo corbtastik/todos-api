@@ -132,48 +132,102 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
 #### Create a Todo
 
 ```bash
-⇒  http :8080/todos/ title="eat bacon pancakes"
+⇒  http :8080/todos/ title="make bacon pancakes"
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 00:50:33 GMT
+Date: Sun, 24 Jun 2018 01:01:46 GMT
 Transfer-Encoding: chunked
 
 {
     "completed": false,
     "id": 0,
-    "title": "eat bacon pancakes"
+    "title": "make bacon pancakes"
 }
 ```
 
 #### Retrieve one Todo
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-retrieve-one.png">
-</p>
+```bash
+⇒  http :8080/todos/0                                           
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:02:54 GMT
+Transfer-Encoding: chunked
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "make bacon pancakes"
+}
+```
 
 #### Retrieve all Todo(s)
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-retrieve-all.png">
-</p>
+⇒  http :8080/todos/ 
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:03:12 GMT
+Transfer-Encoding: chunked
+
+[
+    {
+        "completed": false,
+        "id": 0,
+        "title": "make bacon pancakes"
+    },
+    {
+        "completed": false,
+        "id": 1,
+        "title": "eat bacon pancakes"
+    },
+    {
+        "completed": false,
+        "id": 2,
+        "title": "eat more bacon pancakes with butter"
+    }
+]
 
 #### Update a Todo
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-update.png">
-</p>
+```bash
+⇒  http PATCH :8080/todos/0 completed="true"
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:03:48 GMT
+Transfer-Encoding: chunked
+
+{
+    "completed": true,
+    "id": 0,
+    "title": "make bacon pancakes"
+}
+```
 
 #### Delete one Todo
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-delete-one.png">
-</p>
+```bash
+⇒  http DELETE :8080/todos/0           
+HTTP/1.1 200 
+Content-Length: 0
+Date: Sun, 24 Jun 2018 01:04:23 GMT
+```
 
 #### Delete all Todo(s)
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-delete-all.png">
-</p>
+```bash
+⇒  http DELETE :8080/todos/ 
+HTTP/1.1 200 
+Content-Length: 0
+Date: Sun, 24 Jun 2018 01:04:58 GMT
+
+⇒  http :8080/todos/
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:05:31 GMT
+Transfer-Encoding: chunked
+
+[]
+```
 
 ### Spring Cloud Ready
 
