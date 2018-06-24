@@ -250,7 +250,7 @@ spring:
 
 #### 2) Spring Cloud Eureka Client : Participate in service discovery
 
-To have the Todo(s) API participate in Service Discovery we added the eureka-client dependency in our pom.xml.
+To have the Todo(s) API participate in Service Discovery we added the eureka-client dependency in our ``pom.xml``.
 
 ```xml
     <dependency>
