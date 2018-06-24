@@ -403,7 +403,7 @@ Transfer-Encoding: chunked
 50
 ```
 
-### Run on (PAS) Pivotal Application Service
+### Run on PAS
 
 [Pivotal Application Service](https://pivotal.io/platform/pivotal-application-service) is a modern runtime for Java, .NET, Node.js apps and many more, that provides a connected 5-star development to delivery experience.  PAS provides a cloud agnostic surface for delivering apps, apps such as Spring Boot Microservices.  Rarely in computing do we see this level of harmony between an application development framework and a platform.  Its supersonic dev to delivery with only Cloud Native principles as the interface.
 
