@@ -306,9 +306,21 @@ When the API starts it will register with Eureka and other Eureka Clients such a
 
 #### Query Gateway for routes
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-query-gateway.png">
-</p>
+```bash
+> http :9999/ops/routes
+HTTP/1.1 200 
+Content-Type: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
+Date: Sun, 24 Jun 2018 01:32:35 GMT
+Transfer-Encoding: chunked
+
+{
+    "/**": "http://localhost:4040",
+    "/api/**": "http://localhost:8080/todos",
+    "/config-server/**": "config-server",
+    "/ops/**": "forward:/ops",
+    "/todos-api/**": "todos-api"
+}
+```
 
 #### Calling Todo(s) API through Gateway
 
