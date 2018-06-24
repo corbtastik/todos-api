@@ -324,7 +324,7 @@ Transfer-Encoding: chunked
 
 #### Calling Todo(s) API through Gateway (2 ways)
 
-```
+```bash
 > http :9999/todos-api/todos/
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
