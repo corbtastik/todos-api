@@ -80,7 +80,7 @@ public class TodosAPI {
 Once started the Todo(s) API docs will be available at ``http://localhost:8080/swagger-ui.html``
 
 <p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png" width="400">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png" width="640">
 </p>
 
 ### Build
