@@ -91,13 +91,35 @@ cd todos-api
 ./mvnw clean package
 ```
 
-### Run 
+### Run  
 
 ```bash
 java -jar target/todos-api-1.0.0.SNAP.jar
 ```
 
-### Run with Remote Debug 
+### Run with Overrides  
+
+#### Set limit of 5 Todo(s)  
+
+```bash
+java -jar target/todos-api-1.0.0.SNAP.jar \
+  --todos.api.limit=5
+```
+
+#### Check limit
+
+```bash
+> http :8080/todos/limit
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 00:43:07 GMT
+Transfer-Encoding: chunked
+
+5
+```
+
+### Run with Remote Debug  
+
 ```bash
 java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=9111,suspend=n \
   -jar target/todos-api-1.0.0.SNAP.jar
