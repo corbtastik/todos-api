@@ -131,9 +131,19 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
 
 #### Create a Todo
 
-<p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-create.png">
-</p>
+```bash
+⇒  http :8080/todos/ title="eat bacon pancakes"
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 24 Jun 2018 00:50:33 GMT
+Transfer-Encoding: chunked
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "eat bacon pancakes"
+}
+```
 
 #### Retrieve one Todo
 
