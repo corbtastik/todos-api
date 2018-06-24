@@ -80,7 +80,7 @@ public class TodosAPI {
 Once started the Todo(s) API docs will be available at ``http://localhost:8080/swagger-ui.html``
 
 <p align="center">
-    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png">
+    <img src="https://github.com/corbtastik/todos-images/raw/master/todos-api/todos-api-swagger.png" width="400">
 </p>
 
 ### Build
@@ -110,10 +110,8 @@ java -jar target/todos-api-1.0.0.SNAP.jar \
 
 ```bash
 > http :8080/todos/limit
-HTTP/1.1 200 
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 00:43:07 GMT
-Transfer-Encoding: chunked
 
 5
 ```
@@ -133,10 +131,8 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
 
 ```bash
 > http :8080/todos/ title="make bacon pancakes"
-HTTP/1.1 200 
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 01:01:46 GMT
-Transfer-Encoding: chunked
 
 {
     "completed": false,
@@ -148,11 +144,9 @@ Transfer-Encoding: chunked
 #### Retrieve one Todo
 
 ```bash
-> http :8080/todos/0                                           
-HTTP/1.1 200 
+> http :8080/todos/0  
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 01:02:54 GMT
-Transfer-Encoding: chunked
 
 {
     "completed": false,
@@ -164,11 +158,9 @@ Transfer-Encoding: chunked
 #### Retrieve all Todo(s)
 
 ```bash
-> http :8080/todos/ 
-HTTP/1.1 200 
+> http :8080/todos/  
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 01:03:12 GMT
-Transfer-Encoding: chunked
 
 [
     {
@@ -193,10 +185,8 @@ Transfer-Encoding: chunked
 
 ```bash
 > http PATCH :8080/todos/0 completed="true"
-HTTP/1.1 200 
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 01:03:48 GMT
-Transfer-Encoding: chunked
 
 {
     "completed": true,
@@ -208,25 +198,19 @@ Transfer-Encoding: chunked
 #### Delete one Todo
 
 ```bash
-> http DELETE :8080/todos/0           
-HTTP/1.1 200 
-Content-Length: 0
-Date: Sun, 24 Jun 2018 01:04:23 GMT
+> http DELETE :8080/todos/0  
+HTTP/1.1 200  
 ```
 
 #### Delete all Todo(s)
 
 ```bash
-> http DELETE :8080/todos/ 
-HTTP/1.1 200 
-Content-Length: 0
-Date: Sun, 24 Jun 2018 01:04:58 GMT
+> http DELETE :8080/todos/  
+HTTP/1.1 200  
 
 > http :8080/todos/
-HTTP/1.1 200 
+HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
-Date: Sun, 24 Jun 2018 01:05:31 GMT
-Transfer-Encoding: chunked
 
 []
 ```
