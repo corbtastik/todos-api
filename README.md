@@ -340,7 +340,7 @@ Content-Type: application/json;charset=UTF-8
 
 ### Query Eureka for App Info
 
-As mentioned when this Microservice starts it will register with Eureka, which means we could call Eureka API directly and get information about Todo(s) API.  Eureka has an API that can be used to interact with service registry in a language neutral manner.  To get information about Todo(s) API we could make a call like so to Eureka.
+As mentioned when this Microservice starts it will register with Eureka, which means we could call the Eureka API directly and get information about Todo(s) API.  Eureka has an API that can be used to interact with service registry in a language neutral manner.  To get information about Todo(s) API we could make a call like so to Eureka.
 
 ```bash
 # GET /eureka/apps/${vip}
