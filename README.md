@@ -274,7 +274,7 @@ To **disable** Service Registration we can set ``eureka.client.enabled=false``.
 
 #### 3) Spring Cloud Sleuth : Support for request tracing
 
-Tracing request/response(s) in Microservices is no small task.  Thankfully Spring Cloud Sleuth provides easy entry into distributed tracing.  We added this dependency in ``pom.xml`` to auto-configure request tracing.
+Tracing request/response(s) in Microservices is no small task.  Thankfully [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth) provides easy entry into distributed tracing.  We added this dependency in ``pom.xml`` to auto-configure request tracing.
 
 ```xml
     <dependency>
