@@ -132,7 +132,7 @@ Once Todo(s) API is running we can access it directly using [cURL](https://curl.
 #### Create a Todo
 
 ```bash
-⇒  http :8080/todos/ title="make bacon pancakes"
+> http :8080/todos/ title="make bacon pancakes"
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Date: Sun, 24 Jun 2018 01:01:46 GMT
@@ -148,7 +148,7 @@ Transfer-Encoding: chunked
 #### Retrieve one Todo
 
 ```bash
-⇒  http :8080/todos/0                                           
+> http :8080/todos/0                                           
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Date: Sun, 24 Jun 2018 01:02:54 GMT
@@ -163,7 +163,8 @@ Transfer-Encoding: chunked
 
 #### Retrieve all Todo(s)
 
-⇒  http :8080/todos/ 
+```bash
+> http :8080/todos/ 
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Date: Sun, 24 Jun 2018 01:03:12 GMT
@@ -186,11 +187,12 @@ Transfer-Encoding: chunked
         "title": "eat more bacon pancakes with butter"
     }
 ]
+```
 
 #### Update a Todo
 
 ```bash
-⇒  http PATCH :8080/todos/0 completed="true"
+> http PATCH :8080/todos/0 completed="true"
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Date: Sun, 24 Jun 2018 01:03:48 GMT
@@ -206,7 +208,7 @@ Transfer-Encoding: chunked
 #### Delete one Todo
 
 ```bash
-⇒  http DELETE :8080/todos/0           
+> http DELETE :8080/todos/0           
 HTTP/1.1 200 
 Content-Length: 0
 Date: Sun, 24 Jun 2018 01:04:23 GMT
@@ -215,12 +217,12 @@ Date: Sun, 24 Jun 2018 01:04:23 GMT
 #### Delete all Todo(s)
 
 ```bash
-⇒  http DELETE :8080/todos/ 
+> http DELETE :8080/todos/ 
 HTTP/1.1 200 
 Content-Length: 0
 Date: Sun, 24 Jun 2018 01:04:58 GMT
 
-⇒  http :8080/todos/
+> http :8080/todos/
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Date: Sun, 24 Jun 2018 01:05:31 GMT
