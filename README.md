@@ -358,13 +358,10 @@ Which returns XML info for VIP ``todos-api``.  The complete Eureka API reference
         <app>TODOS-API</app>
         <ipAddr>172.20.10.2</ipAddr>
         <status>UP</status>
-        <overriddenstatus>UNKNOWN</overriddenstatus>
         <port enabled="true">8080</port>
         <securePort enabled="false">443</securePort>
         <countryId>1</countryId>
-            <dataCenterInfo class="com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo">
-            <name>MyOwn</name>
-            </dataCenterInfo>
+        <dataCenterInfo>...</dataCenterInfo>
         <leaseInfo>
             <renewalIntervalInSecs>30</renewalIntervalInSecs>
             <durationInSecs>90</durationInSecs>
@@ -377,11 +374,10 @@ Which returns XML info for VIP ``todos-api``.  The complete Eureka API reference
             <management.port>8080</management.port>
         </metadata>
         <homePageUrl>http://172.20.10.2:8080/</homePageUrl>
-        <statusPageUrl>http://172.20.10.2:8080/actuator/info</statusPageUrl>
-        <healthCheckUrl>http://172.20.10.2:8080/actuator/health</healthCheckUrl>
+        <statusPageUrl>http://172.20.10.2:8080/ops/info</statusPageUrl>
+        <healthCheckUrl>http://172.20.10.2:8080/ops/health</healthCheckUrl>
         <vipAddress>todos-api</vipAddress>
         <secureVipAddress>todos-api</secureVipAddress>
-        <isCoordinatingDiscoveryServer>false</isCoordinatingDiscoveryServer>
         <lastUpdatedTimestamp>1529245795268</lastUpdatedTimestamp>
         <lastDirtyTimestamp>1529245794711</lastDirtyTimestamp>
         <actionType>ADDED</actionType>
