@@ -268,7 +268,7 @@ eureka:
             defaultZone: http://localhost:8761/eureka 
 ```
 
-The ``defaultZone`` is the fallback/default zone used by this Eureka Client, we could register with another zone should one be created in Eureka.
+The ``defaultZone`` is the fallback/default zone used by this Eureka Client, we could register with another zone under ``service-url``.
 
 To **disable** Service Registration we can set ``eureka.client.enabled=false``.
 
