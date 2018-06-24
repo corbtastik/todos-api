@@ -233,7 +233,7 @@ Transfer-Encoding: chunked
 
 ### Spring Cloud Ready
 
-Like every Microservice in Todos-EcoSystem the Todo(s) API plugs into the Spring Cloud stack several ways.
+Like every Microservice in [Todos-EcoSystem](https://github.com/corbtastik/todos-ecosystem) the Todo(s) API plugs into the Spring Cloud stack several ways.
 
 #### 1) Spring Cloud Config Client : Pull config from Config Server
 
