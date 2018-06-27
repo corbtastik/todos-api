@@ -11,8 +11,6 @@ Howdy and welcome.  This repository contains a Microservice API implemented in [
 * [Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth) - request tracing
 * [Swagger API documentation](http://springfox.github.io/springfox/) - API docs with SpringFox
 
-
-
 This API is part of the [Todo collection](https://github.com/corbtastik/todos-ecosystem) which are part of a larger demo set used in Cloud Native Developer Workshops.
 
 This example shows how easy it is to implement Microservices using Spring Boot.  If you have zero to little experience with Spring Boot then this example is a good starting point for learning.  The purpose is to implement an API backend for [Todo(s) UI](https://github.com/corbtastik/todos-ui).  By default the API saves Todo(s) in a ``LinkedHashMap`` which is capped at 25 but with Spring Boot Property Sources we can override at startup like so: ``--todos.api.limit=100``.
@@ -457,18 +455,20 @@ Make sure you're in the Todo(s) API project root (folder with ``manifest.yml``) 
 ```
 
 ```bash
-> cf app todos-restclient  
-Showing health and status for app todos-restclient in org bubbles / space dev as ...
+> cf app todos-api
+Showing health and status for app todos-api in org bubbles / space dev as ...  
 
-name:              todos-restclient
+name:              todos-api
 requested state:   started
 instances:         1/1
 usage:             1G x 1 instances
-routes:            todos-restclient.cfapps.io
+routes:            todos-api.cfapps.io
+last uploaded:     Sat 23 Jun 21:33:25 CDT 2018
+stack:             cflinuxfs2
 buildpack:         java_buildpack
 
-     state     since                  cpu    memory         disk           details
-#0   running   2018-06-26T19:05:18Z   0.3%   369.1M of 1G   165.5M of 1G
+     state     since                  cpu     memory         disk           details
+#0   running   2018-06-24T02:34:44Z   14.7%   379.2M of 1G   170.3M of 1G
 ```  
 
 ### Verify on Cloud   
@@ -476,27 +476,125 @@ buildpack:         java_buildpack
 Once Todo(s) API is running, use an HTTP Client such as [cURL](https://curl.haxx.se/) or [HTTPie](https://httpie.org/) and call ``/ops/info`` to make sure the app has versioning.
 
 ```bash
-> http todos-restclient.cfapps.io/ops/info
+> http todos-api.cfapps.io/ops/info
 HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Length: 143
 Content-Type: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
-Date: Tue, 26 Jun 2018 19:07:12 GMT
-X-Vcap-Request-Id: 059abe96-5825-401b-7ab2-fc697fb5f15a
+X-Vcap-Request-Id: 4da5df96-5cdb-4b49-5ade-e5e9df3eaca4
 
 {
     "build": {
-        "artifact": "todos-restclient",
+        "artifact": "todos-api",
         "group": "io.corbs",
-        "name": "todos-restclient",
-        "time": "2018-06-26T19:01:58.797Z",
+        "name": "todos-api",
+        "time": "2018-06-24T02:30:55.582Z",
         "version": "1.0.0.SNAP"
     }
 }
 ```  
 
+#### Create a cloudy Todo
+
+```bash
+> http todos-api.cfapps.io/todos/ title="make cloudy with meatballs bacon pancakes"
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: f48d536b-381f-40ed-6603-bc2e8dac0ac7
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Retrieve one cloudy Todo
+
+```bash
+> http todos-api.cfapps.io/todos/0
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 6f3c30bd-ab2b-4fd2-61a8-bd0bbe9a585c
+
+{
+    "completed": false,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Retrieve all cloudy Todo(s)
+
+```bash
+> http todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 023728b8-b8a9-4a9f-42d0-797fc87abe99
+
+[
+    {
+        "completed": false,
+        "id": 0,
+        "title": "make cloudy with meatballs bacon pancakes"
+    },
+    {
+        "completed": false,
+        "id": 1,
+        "title": "eat cloudy with meatballs bacon pancakes...add sprinkles"
+    },
+    {
+        "completed": false,
+        "id": 2,
+        "title": "eat cloudy with meatballs fried bacon pancakes...add butter"
+    }
+]
+```
+
+#### Update a cloudy Todo
+
+```bash
+> http PATCH todos-api.cfapps.io/todos/0 completed=true  
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Vcap-Request-Id: 0f9ca41b-3c3f-43b0-6978-35fe4cce976b
+
+{
+    "completed": true,
+    "id": 0,
+    "title": "make cloudy with meatballs bacon pancakes"
+}
+```
+
+#### Delete one cloudy Todo
+
+```bash
+> http DELETE todos-api.cfapps.io/todos/0  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: aca8097d-fea2-4e0e-62f8-b1754496f5b7
+
+> http todos-api.cfapps.io/todos/0  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 88c0ab16-8092-4aaf-79fc-27a0aad39ff3
+```
+
+#### Delete all cloudy Todo(s)  
+
+```bash
+> http DELETE todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 4754c38e-7204-4b5b-45a3-ef68b208a764
+
+> http todos-api.cfapps.io/todos/  
+HTTP/1.1 200 OK
+X-Vcap-Request-Id: 8d5dfd42-a7c7-4fd5-7cff-384e04d550fb
+
+[]
+```
+
 ### Stay Frosty  
+
+#### Adventure Time - [take some bacon and put it in a pancake!](https://www.youtube.com/watch?v=cUYSGojUuAU)  
 
 ### References
 
 * [Eureka in 10 mins](https://blog.asarkar.org/technical/netflix-eureka/)
+
