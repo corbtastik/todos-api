@@ -5,15 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-class Todo implements Serializable {
-    private Integer id;
-    private String title;
-    private Boolean completed = Boolean.FALSE;
-
+class Limit {
+    private Integer limit;
+    private Integer size;
+    private Integer nextId;
 }
