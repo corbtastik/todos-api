@@ -3,7 +3,7 @@ spring:
     name: todos-api
 logging:
   level:
-    io.corbs: INFO
+    io.corbs: DEBUG
 server:
   port: 8080
 management:
@@ -18,4 +18,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 todos:
   api:
-    limit: 65568
+    limit: 1024
