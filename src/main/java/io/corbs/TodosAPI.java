@@ -1,5 +1,7 @@
 package io.corbs;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -15,15 +17,20 @@ import static java.lang.String.format;
 
 @RefreshScope
 @RestController
-@RequestMapping("todos")
 public class TodosAPI {
 
-    @Value("${todos.api.limit}")
-    private int limit;
+    private static final Logger LOG = LoggerFactory.getLogger(TodosAPI.class);
 
     private final Map<Integer, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
 
     private final static AtomicInteger seq = new AtomicInteger(1);
+
+    private Integer limit;
+
+    public TodosAPI(@Value("${todos.api.limit}") Integer limit) {
+        LOG.info("TodosAPI booting with todos.api.limit=" + limit);
+        this.limit = limit;
+    }
 
     @GetMapping("/")
     public List<Todo> retrieve() {
