@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 class Limit {
     private Integer limit;
     private Integer size;
-    private Integer nextId;
 }

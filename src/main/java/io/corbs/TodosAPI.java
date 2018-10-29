@@ -15,7 +15,6 @@ import static java.lang.String.format;
 
 @RefreshScope
 @RestController
-@RequestMapping("todos")
 public class TodosAPI {
 
     @Value("${todos.api.limit}")
@@ -58,6 +57,7 @@ public class TodosAPI {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         todos.remove(id);
+
     }
 
     @PatchMapping("/{id}")
@@ -80,7 +80,7 @@ public class TodosAPI {
 
     @GetMapping("/limit")
     public Limit getLimit() {
-        return Limit.builder().size(this.todos.size()).limit(this.limit).nextId(seq.get()).build();
+        return Limit.builder().size(this.todos.size()).limit(this.limit).build();
     }
 }
 
