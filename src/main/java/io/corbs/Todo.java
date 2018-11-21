@@ -15,5 +15,4 @@ class Todo implements Serializable {
     private Integer id;
     private String title;
     private Boolean completed = Boolean.FALSE;
-
 }

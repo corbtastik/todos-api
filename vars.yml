@@ -2,7 +2,10 @@ app:
   name: todos-api
   artifact: target/todos-api-1.0.0.SNAP.jar
   memory: 1G
-env-key-1: EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE
-env-val-1: http://cloud-index.cfapps.io/eureka/
-env-key-2: TODOS_API_LIMIT
-env-val-2: 512
+  route: https://todos-api.cfapps.io
+env-key-1: TODOS_API_LIMIT
+env-val-1: 128
+env-key-2: EUREKA_CLIENT_ENABLED
+env-val-2: false
+env-key-3: SPRING_CLOUD_CONFIG_ENABLED
+env-val-3: false

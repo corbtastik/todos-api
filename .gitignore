@@ -31,3 +31,9 @@ bin
 node_modules
 package-lock.json
 
+### Secrets and such ###
+.creds
+creds.yml
+secrets.yml
+keys.yml
+
