@@ -2,7 +2,7 @@ app:
   name: todos-api
   artifact: target/todos-api-1.0.0.SNAP.jar
   memory: 1G
-  route: https://todos-api.cfapps.io
+  route: https://corbs-todos-api.cfapps.io
 env-key-1: TODOS_API_LIMIT
 env-val-1: 128
 env-key-2: EUREKA_CLIENT_ENABLED

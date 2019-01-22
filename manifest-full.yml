@@ -3,7 +3,7 @@ applications:
 - name: todos-api
   memory: 1G
   routes:
-  - route: https://todos-api.cfapps.io
+  - route: https://corbs-todos-api.cfapps.io
   path: target/todos-api-1.0.0.SNAP.jar
   buildpack: java_buildpack
   env:
