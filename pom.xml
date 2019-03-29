@@ -82,6 +82,19 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>retro-artifactory-releases</name>
+            <url>http://artifactory.retro.io/artifactory/retro-dev</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>retro-artifactory-snapshots</name>
+            <url>http://artifactory.retro.io/artifactory/retro-dev</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 	<build>
 		<plugins>
             <plugin>

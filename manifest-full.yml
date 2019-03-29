@@ -3,9 +3,9 @@ applications:
 - name: todos-api
   memory: 1G
   routes:
-  - route: https://todos-api.cfapps.io
+  - route: https://todos-api.apps.retro.io
   path: target/todos-api-1.0.0.SNAP.jar
-  buildpack: java_buildpack
+  buildpack: java_buildpack_offline
   env:
     TODOS_API_LIMIT: 128
     EUREKA_CLIENT_ENABLED: false
