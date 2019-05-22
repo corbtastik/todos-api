@@ -4,7 +4,7 @@ A sample Spring Boot app that implement a Todo API.
 
 * [Spring Boot](https://spring.io/projects/spring-boot) for app bits
 
-This application is a simple Todo API that works with this [UI](https://github.com/corbtastik/todos-webui) but can be used by itself.  If you're interested in running this app as a backend to the [UI](https://github.com/corbtastik/todos-webui) then start with this [repo](https://github.com/corbtastik/todos-edge).
+Todos API works with this [UI](https://github.com/corbtastik/todos-webui) but can be used by itself.  If you're interested in running this app as a backend to the [UI](https://github.com/corbtastik/todos-webui) then start with this [repo](https://github.com/corbtastik/todos-edge).
 
 Domain and core API
 
