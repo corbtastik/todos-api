@@ -1,4 +1,4 @@
-package io.corbs;
+package io.todos.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

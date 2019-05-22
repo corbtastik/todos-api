@@ -1,4 +1,4 @@
-package io.corbs;
+package io.todos.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,11 +7,21 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.String.format;
 
@@ -21,9 +31,9 @@ public class TodosAPI {
 
     private static final Logger LOG = LoggerFactory.getLogger(TodosAPI.class);
 
-    private final Map<Integer, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
+    private final Map<Long, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
 
-    private final static AtomicInteger seq = new AtomicInteger(1);
+    private final static AtomicLong seq = new AtomicLong(1L);
 
     private Integer limit;
 
@@ -55,7 +65,7 @@ public class TodosAPI {
     }
 
     @GetMapping("/{id}")
-    public Todo retrieve(@PathVariable Integer id) {
+    public Todo retrieve(@PathVariable Long id) {
         if(!todos.containsKey(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, format("todo.id=%d", id));
         }
@@ -63,13 +73,13 @@ public class TodosAPI {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         todos.remove(id);
 
     }
 
     @PatchMapping("/{id}")
-    public Todo update(@PathVariable Integer id, @RequestBody Todo todo) {
+    public Todo update(@PathVariable Long id, @RequestBody Todo todo) {
         if(todo == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "todo can't be null");
         }

@@ -5,10 +5,8 @@ server:
   port: 8080
 management:
   endpoints:
-    web:
-      base-path: /ops
       exposure:
         include: '*'
 todos:
   api:
-    limit: 128
+    limit: 1024

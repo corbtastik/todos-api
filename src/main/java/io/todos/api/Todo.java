@@ -1,4 +1,4 @@
-package io.corbs;
+package io.todos.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 class Todo implements Serializable {
-    private Integer id;
+    private Long id;
     private String title;
     private Boolean completed = Boolean.FALSE;
 }
