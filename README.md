@@ -60,7 +60,7 @@ Once Todo(s) API is running access it directly using [cURL](https://curl.haxx.se
 
 
 ```bash
-> http :8080/todos/ title="make bacon pancakes"
+> http :8080/ title="make bacon pancakes"
 HTTP/1.1 200  
 Content-Type: application/json;charset=UTF-8
 
