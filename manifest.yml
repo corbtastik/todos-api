@@ -6,5 +6,3 @@ applications:
   buildpack: java_buildpack_offline
   env:
     TODOS_API_LIMIT: 1024
-    EUREKA_CLIENT_ENABLED: false
-    SPRING_CLOUD_CONFIG_ENABLED: false

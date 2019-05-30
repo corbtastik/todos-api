@@ -3,7 +3,6 @@ package io.todos.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -25,7 +24,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.String.format;
 
-@RefreshScope
 @RestController
 public class TodosAPI {
 
