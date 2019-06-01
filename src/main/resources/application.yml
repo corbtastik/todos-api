@@ -3,10 +3,11 @@ spring:
     name: todos-api
 server:
   port: 8080
-management:
-  endpoints:
-      exposure:
-        include: '*'
 todos:
   api:
     limit: 1024
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
