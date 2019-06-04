@@ -1,8 +1,7 @@
 spring:
   application:
     name: todos-api
-server:
-  port: 8080
+# custom property
 todos:
   api:
     limit: 1024
