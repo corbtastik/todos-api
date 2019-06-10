@@ -25,6 +25,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.String.format;
 
+/**
+ * Spring Cloud Config Client
+ * 1. You need a Config Server
+ * 2. Config Client dependencies
+ * 3. @RefreshScope
+ */
 @RefreshScope
 @RestController
 public class TodosAPI {
