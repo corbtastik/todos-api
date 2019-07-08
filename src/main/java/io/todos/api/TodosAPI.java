@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 
 import static java.lang.String.format;
 
@@ -29,9 +29,7 @@ public class TodosAPI {
 
     private static final Logger LOG = LoggerFactory.getLogger(TodosAPI.class);
 
-    private final Map<Long, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
-
-    private final static AtomicLong seq = new AtomicLong(1L);
+    private final Map<String, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
 
     private Integer limit;
 
@@ -48,7 +46,7 @@ public class TodosAPI {
     @PostMapping("/")
     public Todo create(@RequestBody Todo todo) {
         if(todos.size() < limit) {
-            todo.setId(seq.getAndIncrement());
+            todo.setId(UUID.randomUUID().toString());
             todos.put(todo.getId(), todo);
             return todos.get(todo.getId());
         } else {
@@ -63,7 +61,7 @@ public class TodosAPI {
     }
 
     @GetMapping("/{id}")
-    public Todo retrieve(@PathVariable Long id) {
+    public Todo retrieve(@PathVariable String id) {
         if(!todos.containsKey(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, format("todo.id=%d", id));
         }
@@ -71,13 +69,13 @@ public class TodosAPI {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         todos.remove(id);
 
     }
 
     @PatchMapping("/{id}")
-    public Todo update(@PathVariable Long id, @RequestBody Todo todo) {
+    public Todo update(@PathVariable String id, @RequestBody Todo todo) {
         if(todo == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "todo can't be null");
         }
@@ -85,8 +83,8 @@ public class TodosAPI {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, format("todo.id=%d", id));
         }
         Todo current = todos.get(id);
-        if(!ObjectUtils.isEmpty(todo.getCompleted())) {
-            current.setCompleted(todo.getCompleted());
+        if(!ObjectUtils.isEmpty(todo.getComplete())) {
+            current.setComplete(todo.getComplete());
         }
         if(!StringUtils.isEmpty(todo.getTitle())){
             current.setTitle(todo.getTitle());
