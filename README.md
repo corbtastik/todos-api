@@ -14,19 +14,41 @@ Domain and core API
     @AllArgsConstructor
     @NoArgsConstructor
     class Todo implements Serializable {
-        private Long id;
+        private String id;
         private String title;
         private Boolean completed = Boolean.FALSE;
     }
     @PostMapping("/")
     public Todo create(@RequestBody Todo todo) { }
     @GetMapping("/{id}")
-    public Todo retrieve(@PathVariable Long id) { }
+    public Todo retrieve(@PathVariable String id) { }
     @PatchMapping("/{id}")
-    public Todo update(@PathVariable Long id, @RequestBody Todo todo) { }
+    public Todo update(@PathVariable String id, @RequestBody Todo todo) { }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) { }
+    public void delete(@PathVariable String id) { }
 
+```
+
+## Build
+
+This project was created from the [Spring Initialzr](https://start.spring.io) as a Java 1.8, Maven build project.  You can build locally using the [maven wrapper](https://github.com/takari/maven-wrapper) (`mvnw`).
+
+**Tomcat is default**
+```bash
+./mvnw clean package
+# target/todos-api-1.0.0.SNAP.jar
+```
+
+**Build with Jetty**
+```bash
+./mvnw clean package -P jetty
+# target/todos-api-1.0.0.SNAP.jar
+```
+
+**Build with Undertow**
+```bash
+./mvnw clean package -P undertow
+# target/todos-api-1.0.0.SNAP.jar
 ```
 
 ## Run on PCF
@@ -45,7 +67,7 @@ You can clone, build, run then access ``localhost:8080`` or change the port.
 ```bash
 java -jar ./target/todos-api-1.0.0.SNAP.jar \
   --server.port=whatever
-``` 
+```
 
 ## Run with Remote Debug  
 
@@ -66,7 +88,14 @@ Content-Type: application/json;charset=UTF-8
 
 {
     "completed": false,
-    "id": 1,
+    "id": "c81d4e2e",
     "title": "make bacon pancakes"
 }
 ```
+
+## Spring Boot references:
+
+1. [Dependency Management in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-dependency-management) - exact dependency versions
+1. [Spring Boot Dependencies](https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/pom.xml)
+3. [Spring Boot Starters](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-starter) - this app uses `spring-boot-starter-web`, `spring-boot-starter-actuator` and `spring-boot-starter-sleuth`
+4. [How to embed Web Servers](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-web-servers.html) - for servlet stack web apps use [tomcat](http://tomcat.apache.org/), [jetty](https://www.eclipse.org/jetty/), or [undertow](http://undertow.io/).  For reactive stack web apps use the previous servers or [netty](https://netty.io/).
