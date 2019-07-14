@@ -1,12 +1,13 @@
 spring:
   application:
     name: todos-api
-# custom property
-todos:
-  api:
-    limit: 1024
+# log levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL, or OFF
+logging:
+    level:
+        root: INFO
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+

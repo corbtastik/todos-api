@@ -76,6 +76,17 @@ java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=9111,suspend=n \
   -jar target/todos-api-1.0.0.SNAP.jar
 ```
 
+## Todo(s) Properties
+
+`TodosProperties` contains a couple application properties.
+
+```bash
+# limit number of todos to put in map
+todos.api.limit=1024
+# use 8 char random string for id or 36 (uuid)
+todos.ids.tiny-id=true
+```
+
 ## Verify
 
 Once Todo(s) API is running access it directly using [cURL](https://curl.haxx.se/) or [HTTPie](https://httpie.org/) to perform CRUD operations.
@@ -99,3 +110,11 @@ Content-Type: application/json;charset=UTF-8
 1. [Spring Boot Dependencies](https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/pom.xml)
 3. [Spring Boot Starters](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-starter) - this app uses `spring-boot-starter-web`, `spring-boot-starter-actuator` and `spring-boot-starter-sleuth`
 4. [How to embed Web Servers](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-web-servers.html) - for servlet stack web apps use [tomcat](http://tomcat.apache.org/), [jetty](https://www.eclipse.org/jetty/), or [undertow](http://undertow.io/).  For reactive stack web apps use the previous servers or [netty](https://netty.io/).
+1. [Spring Boot Auto Configuration](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-auto-configuration) - `@SpringBootApplication or @EnableAutoConfiguration`
+1. [Externalized Configuration](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config)
+1. [ConfigurationProperties](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-typesafe-configuration-properties)
+1. [`@ConfigurationProperties vs @Value`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-vs-value)
+1. [Spring MVC Auto-configuration](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-auto-configuration)
+1. [Spring Boot Security](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-security)
+1. [Testing Spring Boot Applications](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing-spring-boot-applications)
+1. [Actuator Endpoints](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints)

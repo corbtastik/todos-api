@@ -17,6 +17,9 @@ public class TodosAppTests {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private TodosProperties properties;
+
     @Test
     public void createDelete() {
         String body = this.restTemplate.getForObject("/", String.class);
@@ -27,7 +30,12 @@ public class TodosAppTests {
 
         Todo createdTodo = this.restTemplate.postForObject("/", todo, Todo.class);
 
-        assertThat(createdTodo.getId().length()).isEqualTo(36);
+        if(properties.getIds().getTinyId()) {
+            assertThat(createdTodo.getId().length()).isEqualTo(8);
+        } else {
+            assertThat(createdTodo.getId().length()).isEqualTo(36);
+        }
+
         assertThat(createdTodo.getTitle()).isEqualTo("unit test create todo");
         assertThat(createdTodo.getComplete()).isFalse();
 

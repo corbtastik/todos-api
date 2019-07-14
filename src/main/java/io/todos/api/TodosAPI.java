@@ -2,7 +2,7 @@ package io.todos.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -31,11 +31,12 @@ public class TodosAPI {
 
     private final Map<String, Todo> todos = Collections.synchronizedMap(new LinkedHashMap<>());
 
-    private Integer limit;
+    private final TodosProperties properties;
 
-    public TodosAPI(@Value("${todos.api.limit}") Integer limit) {
-        LOG.info("TodosAPI booting with todos.api.limit=" + limit);
-        this.limit = limit;
+    @Autowired
+    public TodosAPI(TodosProperties properties) {
+        LOG.info("TodosAPI booting with todos.api.limit=" + properties.getApi().getLimit());
+        this.properties = properties;
     }
 
     @GetMapping("/")
@@ -45,13 +46,18 @@ public class TodosAPI {
 
     @PostMapping("/")
     public Todo create(@RequestBody Todo todo) {
-        if(todos.size() < limit) {
-            todo.setId(UUID.randomUUID().toString());
+        if(todos.size() < properties.getApi().getLimit()) {
+            if(properties.getIds().getTinyId()) {
+                todo.setId(UUID.randomUUID().toString().substring(0, 8));
+            } else {
+                todo.setId(UUID.randomUUID().toString());
+            }
+            LOG.info("Saving Todo " + todo + " into map");
             todos.put(todo.getId(), todo);
             return todos.get(todo.getId());
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    format("todos.api.limit=%d, todos.size()=%d", limit, todos.size()));
+                    format("todos.api.limit=%d, todos.size()=%d", properties.getApi().getLimit(), todos.size()));
         }
     }
 
@@ -94,7 +100,7 @@ public class TodosAPI {
 
     @GetMapping("/limit")
     public Limit getLimit() {
-        return Limit.builder().size(this.todos.size()).limit(this.limit).build();
+        return Limit.builder().size(this.todos.size()).limit(properties.getApi().getLimit()).build();
     }
 }
 
