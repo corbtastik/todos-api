@@ -1,0 +1,12 @@
+---
+applications:
+- name: your-todos-api
+  memory: 1G
+  instances: 1
+  path: target/todos-api-1.0.0.SNAP.jar
+  buildpack: java_buildpack
+  services:
+  - your-todos-config
+  - your-todos-registry
+  env:
+    SPRING_APPLICATION_NAME: your-todos-api
