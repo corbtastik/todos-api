@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 class Todo implements Serializable {
-    private Long id;
+    private String id;
     private String title;
-    private Boolean completed = Boolean.FALSE;
+    private Boolean complete = Boolean.FALSE;
 }

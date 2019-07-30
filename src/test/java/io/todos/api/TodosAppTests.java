@@ -17,19 +17,27 @@ public class TodosAppTests {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private TodosProperties properties;
+
     @Test
     public void createDelete() {
         String body = this.restTemplate.getForObject("/", String.class);
         assertThat(body).isEqualTo("[]");
 
         Todo todo = Todo.builder().title("unit test create todo")
-            .completed(Boolean.FALSE).build();
+                .complete(Boolean.FALSE).build();
 
         Todo createdTodo = this.restTemplate.postForObject("/", todo, Todo.class);
 
-        assertThat(createdTodo.getId()).isGreaterThanOrEqualTo(0);
+        if(properties.getIds().getTinyId()) {
+            assertThat(createdTodo.getId().length()).isEqualTo(8);
+        } else {
+            assertThat(createdTodo.getId().length()).isEqualTo(36);
+        }
+
         assertThat(createdTodo.getTitle()).isEqualTo("unit test create todo");
-        assertThat(createdTodo.getCompleted()).isFalse();
+        assertThat(createdTodo.getComplete()).isFalse();
 
         this.restTemplate.delete("/" + createdTodo.getId());
         body = this.restTemplate.getForObject("/", String.class);

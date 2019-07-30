@@ -1,9 +1,9 @@
 spring:
   application:
     name: todos-api
-todos:
-  api:
-    limit: 1024
+logging:
+  level:
+    io.todos: TRACE
 management:
   endpoints:
     web:
