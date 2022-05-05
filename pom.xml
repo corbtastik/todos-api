@@ -15,10 +15,9 @@
 	<name>todos-api</name>
 	<description>Todos API - Spring Boot</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <properties>
         <java.version>17</java.version>
+        <jkube.version>1.7.0</jkube.version>
     </properties>
 
 	<dependencies>
@@ -40,9 +39,8 @@
         </dependency>
     </dependencies>
 
-	<build>
-		<plugins>
-            <!-- Maven plugin that can package the project as an executable jar  -->
+    <build>
+        <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -53,9 +51,23 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
-		</plugins>
-	</build>
+
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>openshift-maven-plugin</artifactId>
+                <version>${jkube.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>
