@@ -16,7 +16,8 @@
 	<description>Todos API - Spring Boot</description>
 
 	<properties>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
+        <jkube.version>1.7.0</jkube.version>
     </properties>
 
 	<dependencies>
@@ -40,7 +41,6 @@
 
 	<build>
 		<plugins>
-            <!-- Maven plugin that can package the project as an executable jar  -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -51,6 +51,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>openshift-maven-plugin</artifactId>
+                <version>${jkube.version}</version>
             </plugin>
 		</plugins>
 	</build>
